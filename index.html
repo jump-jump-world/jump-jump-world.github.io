@@ -23,6 +23,7 @@
   th,td { text-align:left; padding:6px 8px; border-bottom:1px solid #3a3a5e; }
   th { color:var(--blue); }
   .empty { color:#9a9ab8; font-style:italic; }
+  #scores h3 { color:var(--blue); margin:14px 0 6px; font-size:1rem; }
   #play { display:none; text-align:center; }
   #play a { display:inline-block; background:var(--gold); color:#1b1b2f; font-weight:bold;
             padding:14px 40px; border-radius:10px; text-decoration:none; font-size:1.3rem; }
@@ -40,8 +41,7 @@
 <section id="play"><a id="playlink" href="#">▶ PLAY IT</a></section>
 <section><h2>Trophy Case</h2><ul id="trophies"></ul><p class="empty" id="t-empty">The workshop is warming up...</p></section>
 <section><h2>Fastest Times</h2>
-  <table><thead><tr><th>Runner</th><th>Level</th><th>Time</th><th>Day</th></tr></thead>
-  <tbody id="scores"></tbody></table>
+  <div id="scores"></div>
   <p class="empty" id="s-empty">No times on the board yet — the Game Maker is training.</p>
 </section>
 <section id="gallery"><h2>From the Game</h2></section>
@@ -59,13 +59,29 @@ async function j(p){ try { const r = await fetch(p, {cache: "no-store"}); return
     }
   }
   const s = await j("data/scoreboard.json");
-  if (s && s.entries.length) {
+  if (s && (s.records || []).length) {
     document.getElementById("s-empty").remove();
-    const rows = [...s.entries].sort((a,b) => a.level - b.level || a.time - b.time);
-    for (const e of rows) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${s.handle}</td><td>${e.level}</td><td>${e.time.toFixed(1)}s</td><td>${e.date}</td>`;
-      document.getElementById("scores").appendChild(tr);
+    const fmt = t => { const cs = Math.round(t * 100);
+      const m = Math.floor(cs / 6000), sec = Math.floor((cs % 6000) / 100), c = cs % 100;
+      return `${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}.${String(c).padStart(2,"0")}`; };
+    const byRun = new Map();
+    for (const r of s.records) {
+      if (!byRun.has(r.run)) byRun.set(r.run, []);
+      byRun.get(r.run).push(r);
+    }
+    const host = document.getElementById("scores");
+    for (const [run, rows] of byRun) {
+      rows.sort((a, b) => a.time - b.time);
+      const h = document.createElement("h3"); h.textContent = run; host.appendChild(h);
+      const tbl = document.createElement("table");
+      tbl.innerHTML = "<thead><tr><th>Runner</th><th>Time</th><th>Day</th></tr></thead>";
+      const tb = document.createElement("tbody");
+      for (const r of rows) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td>${r.runner}</td><td>${fmt(r.time)}</td><td>${r.date}</td>`;
+        tb.appendChild(tr);
+      }
+      tbl.appendChild(tb); host.appendChild(tbl);
     }
   }
   const c = await j("data/config.json");
