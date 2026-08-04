@@ -48,7 +48,7 @@
 <footer>Made with jumping. All of it by The Game Maker.</footer>
 </main>
 <script>
-async function j(p){ try { const r = await fetch(p); return r.ok ? await r.json() : null; } catch { return null; } }
+async function j(p){ try { const r = await fetch(p, {cache: "no-store"}); return r.ok ? await r.json() : null; } catch { return null; } }
 (async () => {
   const t = await j("data/trophies.json");
   if (t && t.trophies.length) {
