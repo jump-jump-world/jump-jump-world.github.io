@@ -1,2 +1,84 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Jump Jump World</title></head>
-<body><h1>Jump Jump World</h1><p>Under construction by The Game Maker.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jump Jump World</title>
+<style>
+  :root { --bg:#1b1b2f; --card:#24243e; --ink:#eaeaea; --gold:#ffd54a; --blue:#6ec6ff; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--ink); font-family:"Segoe UI",system-ui,sans-serif; line-height:1.5; }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 64px; }
+  header { text-align:center; padding:48px 8px 24px; }
+  h1 { font-size:2.6rem; letter-spacing:2px; color:var(--gold);
+       text-shadow:3px 3px 0 #000; }
+  header p { color:var(--blue); }
+  header img { image-rendering:pixelated; height:64px; margin:12px 6px 0; }
+  section { background:var(--card); border-radius:12px; padding:20px; margin-top:24px; }
+  h2 { color:var(--gold); font-size:1.2rem; margin-bottom:12px; }
+  ul#trophies { list-style:none; }
+  ul#trophies li { padding:6px 0 6px 28px; position:relative; }
+  ul#trophies li::before { content:"🏆"; position:absolute; left:0; }
+  table { width:100%; border-collapse:collapse; }
+  th,td { text-align:left; padding:6px 8px; border-bottom:1px solid #3a3a5e; }
+  th { color:var(--blue); }
+  .empty { color:#9a9ab8; font-style:italic; }
+  #play { display:none; text-align:center; }
+  #play a { display:inline-block; background:var(--gold); color:#1b1b2f; font-weight:bold;
+            padding:14px 40px; border-radius:10px; text-decoration:none; font-size:1.3rem; }
+  #gallery img { max-width:100%; border-radius:8px; margin-top:8px; }
+  footer { text-align:center; color:#9a9ab8; margin-top:32px; font-size:.85rem; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>JUMP JUMP WORLD</h1>
+  <p>a game built by The Game Maker</p>
+  <img src="media/player.png" alt=""><img src="media/coin.png" alt="">
+</header>
+<section id="play"><a id="playlink" href="#">▶ PLAY IT</a></section>
+<section><h2>Trophy Case</h2><ul id="trophies"></ul><p class="empty" id="t-empty">The workshop is warming up...</p></section>
+<section><h2>Fastest Times</h2>
+  <table><thead><tr><th>Runner</th><th>Level</th><th>Time</th><th>Day</th></tr></thead>
+  <tbody id="scores"></tbody></table>
+  <p class="empty" id="s-empty">No times on the board yet — the Game Maker is training.</p>
+</section>
+<section id="gallery"><h2>From the Game</h2></section>
+<footer>Made with jumping. All of it by The Game Maker.</footer>
+</main>
+<script>
+async function j(p){ try { const r = await fetch(p); return r.ok ? await r.json() : null; } catch { return null; } }
+(async () => {
+  const t = await j("data/trophies.json");
+  if (t && t.trophies.length) {
+    document.getElementById("t-empty").remove();
+    for (const line of t.trophies) {
+      const li = document.createElement("li"); li.textContent = line;
+      document.getElementById("trophies").appendChild(li);
+    }
+  }
+  const s = await j("data/scoreboard.json");
+  if (s && s.entries.length) {
+    document.getElementById("s-empty").remove();
+    const rows = [...s.entries].sort((a,b) => a.level - b.level || a.time - b.time);
+    for (const e of rows) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${s.handle}</td><td>${e.level}</td><td>${e.time.toFixed(1)}s</td><td>${e.date}</td>`;
+      document.getElementById("scores").appendChild(tr);
+    }
+  }
+  const c = await j("data/config.json");
+  if (c && c.play_url) {
+    document.getElementById("playlink").href = c.play_url;
+    document.getElementById("play").style.display = "block";
+  }
+  const g = await j("data/gallery.json");
+  if (g) for (const f of g.files) {
+    const img = document.createElement("img"); img.src = "media/" + f;
+    document.getElementById("gallery").appendChild(img);
+  }
+})();
+</script>
+</body>
+</html>
