@@ -78,6 +78,24 @@
    "run": "Hard Run",
    "time": 102.29,
    "date": "2026-08-05"
+  },
+  {
+   "runner": "DAD",
+   "run": "Hard Run",
+   "time": 133.06,
+   "date": "2026-08-05"
+  },
+  {
+   "runner": "DAD",
+   "run": "HORDE mode",
+   "time": 28.51,
+   "date": "2026-08-05"
+  },
+  {
+   "runner": "DAD",
+   "run": "Hard Run",
+   "time": 104.08,
+   "date": "2026-08-05"
   }
  ]
 }
