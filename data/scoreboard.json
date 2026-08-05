@@ -36,6 +36,36 @@
    "run": "Hard Run",
    "time": 106.37,
    "date": "2026-08-04"
+  },
+  {
+   "runner": "KAM",
+   "run": "HORDE mode",
+   "time": 46.98,
+   "date": "2026-08-04"
+  },
+  {
+   "runner": "DAD",
+   "run": "HORDE mode",
+   "time": 27.87,
+   "date": "2026-08-04"
+  },
+  {
+   "runner": "DAD",
+   "run": "HORDE mode",
+   "time": 29.38,
+   "date": "2026-08-04"
+  },
+  {
+   "runner": "KAM",
+   "run": "HORDE mode",
+   "time": 23.62,
+   "date": "2026-08-04"
+  },
+  {
+   "runner": "DAD",
+   "run": "HORDE mode",
+   "time": 21.26,
+   "date": "2026-08-04"
   }
  ]
 }
