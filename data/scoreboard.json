@@ -66,6 +66,18 @@
    "run": "HORDE mode",
    "time": 21.26,
    "date": "2026-08-04"
+  },
+  {
+   "runner": "DAD",
+   "run": "HORDE mode",
+   "time": 32.97,
+   "date": "2026-08-05"
+  },
+  {
+   "runner": "DAD",
+   "run": "Hard Run",
+   "time": 102.29,
+   "date": "2026-08-05"
   }
  ]
 }
