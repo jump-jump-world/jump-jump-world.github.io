@@ -8,7 +8,22 @@
   :root { --bg:#1b1b2f; --card:#24243e; --ink:#eaeaea; --gold:#ffd54a; --blue:#6ec6ff; }
   * { box-sizing:border-box; margin:0; }
   body { background:var(--bg); color:var(--ink); font-family:"Segoe UI",system-ui,sans-serif; line-height:1.5; }
-  main { max-width:720px; margin:0 auto; padding:24px 16px 64px; }
+  main { max-width:1100px; margin:0 auto; padding:24px 16px 64px; }
+  .cols { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; margin-top:24px; }
+  .cols section { margin-top:0; }
+  @media (max-width:860px) { .cols { grid-template-columns:1fr; } }
+  details.day { background:#1d2436; border-radius:10px; margin:8px 0; padding:4px 10px; }
+  details.day summary { cursor:pointer; list-style:none; display:flex; align-items:center;
+                        gap:10px; padding:8px 4px; font-weight:bold; }
+  details.day summary::-webkit-details-marker { display:none; }
+  details.day summary::before { content:'▸'; color:#8891ab; }
+  details.day[open] summary::before { content:'▾'; }
+  details.day .sum { color:#aab6d8; font-weight:normal; font-size:.9rem; }
+  details.day .count { margin-left:auto; background:#39425e; border-radius:8px;
+                       padding:2px 10px; font-size:.8rem; color:var(--blue); font-weight:normal; }
+  details.day ul { list-style:none; padding:2px 4px 8px; }
+  details.day li { padding:6px 0 6px 28px; position:relative; }
+  details.day li::before { content:'🏆'; position:absolute; left:0; }
   header { text-align:center; padding:48px 8px 24px; }
   h1 { font-size:2.6rem; letter-spacing:2px; color:var(--gold);
        text-shadow:3px 3px 0 #000; }
@@ -16,9 +31,6 @@
   header img { image-rendering:pixelated; height:64px; margin:12px 6px 0; }
   section { background:var(--card); border-radius:12px; padding:20px; margin-top:24px; }
   h2 { color:var(--gold); font-size:1.2rem; margin-bottom:12px; }
-  ul#trophies { list-style:none; }
-  ul#trophies li { padding:6px 0 6px 28px; position:relative; }
-  ul#trophies li::before { content:"🏆"; position:absolute; left:0; }
   table { width:100%; border-collapse:collapse; }
   th,td { text-align:left; padding:6px 8px; border-bottom:1px solid #3a3a5e; }
   th { color:var(--blue); }
@@ -39,24 +51,62 @@
   <img src="media/player.png" alt=""><img src="media/coin.png" alt="">
 </header>
 <section id="play"><a id="playlink" href="#">▶ PLAY IT</a></section>
-<section><h2>Trophy Case</h2><ul id="trophies"></ul><p class="empty" id="t-empty">The workshop is warming up...</p></section>
+<div class="cols">
+<section><h2>Trophy Case</h2><div id="trophies"></div><p class="empty" id="t-empty">The workshop is warming up...</p></section>
 <section><h2>Fastest Times</h2>
   <div id="scores"></div>
   <p class="empty" id="s-empty">No times on the board yet — the Game Maker is training.</p>
 </section>
+</div>
 <section id="gallery"><h2>From the Game</h2></section>
 <footer>Made with jumping. All of it by The Game Maker.</footer>
 </main>
 <script>
 async function j(p){ try { const r = await fetch(p, {cache: "no-store"}); return r.ok ? await r.json() : null; } catch { return null; } }
 (async () => {
+  const DAY_NOTES = {
+    0: "The game is born — a guy who runs and jumps, coins to grab, real art.",
+    1: "Powers week: double jump, dash, fireballs, springs, clouds, a second level — and the first hawk.",
+    2: "The KING SLIME rises — his castle, his attacks, and the level builder learns new tricks.",
+    3: "The GREAT EAGLE: feathers and the grand finale, a whole new mountain, his own summit arena.",
+    4: "The game learns to remember — challenge runs, arcade signatures, records... and the HORDE arrives.",
+  };
   const t = await j("data/trophies.json");
   if (t && t.trophies.length) {
     document.getElementById("t-empty").remove();
+    const days = new Map();
     for (const line of t.trophies) {
-      const li = document.createElement("li"); li.textContent = line;
-      document.getElementById("trophies").appendChild(li);
+      const m = line.match(/^Day (\d+)/);
+      const key = m ? Number(m[1]) : -1;
+      if (!days.has(key)) days.set(key, []);
+      days.get(key).push(line);
     }
+    const host = document.getElementById("trophies");
+    const keys = [...days.keys()].sort((a, b) => b - a);
+    keys.forEach((k, idx) => {
+      const det = document.createElement("details");
+      det.className = "day";
+      if (idx === 0) det.open = true;
+      const sum = document.createElement("summary");
+      sum.innerHTML = "<span></span><span class='sum'></span><span class='count'></span>";
+      sum.children[0].textContent = k >= 0 ? "Day " + k : "More";
+      sum.children[1].textContent = DAY_NOTES[k] || (days.get(k).length + " new things for the game");
+      sum.children[2].textContent = days.get(k).length;
+      det.appendChild(sum);
+      const ul = document.createElement("ul");
+      for (const line of days.get(k)) {
+        const li = document.createElement("li");
+        li.textContent = line;
+        ul.appendChild(li);
+      }
+      det.appendChild(ul);
+      det.addEventListener("toggle", () => {
+        if (det.open)
+          for (const other of host.querySelectorAll("details.day"))
+            if (other !== det && other.open) other.open = false;
+      });
+      host.appendChild(det);
+    });
   }
   const s = await j("data/scoreboard.json");
   if (s && (s.records || []).length) {
