@@ -114,6 +114,18 @@
    "run": "HORDE mode",
    "time": 25.38,
    "date": "2026-08-05"
+  },
+  {
+   "runner": "DAD",
+   "run": "HORDE mode",
+   "time": 66.4,
+   "date": "2026-08-06"
+  },
+  {
+   "runner": "KAM",
+   "run": "super HORDE mode",
+   "time": 118.47,
+   "date": "2026-08-06"
   }
  ]
 }
