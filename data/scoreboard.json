@@ -126,6 +126,24 @@
    "run": "super HORDE mode",
    "time": 118.47,
    "date": "2026-08-06"
+  },
+  {
+   "runner": "DAD",
+   "run": "Time Trial",
+   "time": 168.84,
+   "date": "2026-08-07"
+  },
+  {
+   "runner": "DAD",
+   "run": "super HORDE mode",
+   "time": 148.95,
+   "date": "2026-08-07"
+  },
+  {
+   "runner": "DAD",
+   "run": "super HORDE mode",
+   "time": 127.37,
+   "date": "2026-08-07"
   }
  ]
 }
