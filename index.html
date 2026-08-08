@@ -36,6 +36,11 @@
   th { color:var(--blue); }
   .empty { color:#9a9ab8; font-style:italic; }
   #scores h3 { color:var(--blue); margin:14px 0 6px; font-size:1rem; }
+  #scores tr.extra { display:none; }
+  #scores table.open tr.extra { display:table-row; }
+  #scores .more { color:#8891ab; font-size:.85rem; cursor:pointer; padding:6px 8px 0;
+                  user-select:none; }
+  #scores .more:hover { color:var(--blue); }
   #play { display:none; text-align:center; }
   #play a { display:inline-block; background:var(--gold); color:#1b1b2f; font-weight:bold;
             padding:14px 40px; border-radius:10px; text-decoration:none; font-size:1.3rem; }
@@ -130,12 +135,24 @@ async function j(p){ try { const r = await fetch(p, {cache: "no-store"}); return
       const tbl = document.createElement("table");
       tbl.innerHTML = "<thead><tr><th>Runner</th><th>Time</th><th>Day</th></tr></thead>";
       const tb = document.createElement("tbody");
-      for (const r of rows) {
+      rows.forEach((r, i) => {
         const tr = document.createElement("tr");
+        if (i >= 5) tr.className = "extra";
         tr.innerHTML = `<td>${r.runner}</td><td>${fmt(r.time)}</td><td>${r.date}</td>`;
         tb.appendChild(tr);
-      }
+      });
       tbl.appendChild(tb); host.appendChild(tbl);
+      if (rows.length > 5) {
+        const more = document.createElement("div");
+        more.className = "more";
+        const closed = `▸ show all ${rows.length} times`;
+        more.textContent = closed;
+        more.addEventListener("click", () => {
+          const open = tbl.classList.toggle("open");
+          more.textContent = open ? "▾ show top 5 only" : closed;
+        });
+        host.appendChild(more);
+      }
     }
   }
   const c = await j("data/config.json");
