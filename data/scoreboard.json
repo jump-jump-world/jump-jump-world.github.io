@@ -144,6 +144,18 @@
    "run": "super HORDE mode",
    "time": 127.37,
    "date": "2026-08-07"
+  },
+  {
+   "runner": "DAD",
+   "run": "Vampire Castle",
+   "time": 192.46,
+   "date": "2026-08-07"
+  },
+  {
+   "runner": "KAM",
+   "run": "Vampire Castle",
+   "time": 166.48,
+   "date": "2026-08-07"
   }
  ]
 }
