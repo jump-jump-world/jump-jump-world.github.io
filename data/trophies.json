@@ -1,5 +1,10 @@
 {
  "trophies": [
+  "Day 13 \u2014 LAVA PITS! Glowing red lava now fills the pits you built in level 14 - touch it and you're back at your checkpoint instantly, no matter how many hearts you have.",
+  "Day 12d \u2014 Fixed a real bug YOU found! The two goals in level 12 - Defeat 3 Bone Knights AND Beat the Mage - were printing on top of each other. Now they stack neatly, one under the other.",
+  "Day 12c \u2014 Bone Knights and Mages are on your shelf in the level builder now! And the goal checkmark for levels 11 and 12 is a real checkable box now too, not just locked in place.",
+  "Day 12b \u2014 The bat's hitbox is bigger now - matches the actual size of the bat, so it feels right when you stomp or bump into one.",
+  "Day 12 \u2014 BATS are flying through levels 12 and 13! Same flying moves as the flyers, but they LOOK like real bats now. And they're on your shelf in the level builder too, under the bat icon.",
   "Day 8p \u2014 YOU BEAT THE VAMPIRE! The whole Spooky Gauntlet is done - and you named the Run yourself: VAMPIRE CASTLE. It's on the menu now, ready to race anytime.",
   "Day 8o \u2014 Fixed a real bug YOU found! The Mage's exploding orb was staying dangerous for a moment AFTER its glow faded away - so it looked like empty air (or an invisible mage) was hurting you. Now it disappears the instant its glow does.",
   "Day 8n \u2014 Level 13 now has the same dark spooky sky as the rest of the gauntlet. The whole vampire arc feels like one place now.",
