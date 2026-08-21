@@ -1,5 +1,17 @@
 {
  "trophies": [
+  "Day 20b \u2014 A glowing blue ring now circles you whenever you have a blue heart! It follows you everywhere and vanishes the instant your last blue heart is gone.",
+  "Day 20 \u2014 BLUE SHIELD power-up! Touch one and you get an extra blue heart, up to three - they show right next to your normal hearts, and a hit always takes a blue heart first before it ever touches your real ones. Blue hearts and normal hearts never mix. It's in the level builder now too, under GOODIES.",
+  "Day 19 \u2014 RED SLIME is on your shelf in the level builder! Hops and bounces off walls just like the blue one, but twice as fast, and it takes TWO hits to squash - you have to land back on the ground before the second hit counts, no cheap double-bounce.",
+  "Day 18b \u2014 Tuned the BOTH-ways Fire Cannon: it shoots one fireball at a time now instead of two at once, and it turns to actually face the way it's about to shoot.",
+  "Day 18 \u2014 FIRE CANNONS are on your shelf in the level builder, under DANGER! Three of them - one that always shoots left, one that always shoots right, and one that shoots BOTH ways - and the fireballs always come out of the hole, not the middle. Brand new painted cannon too.",
+  "Day 17b \u2014 Blue Slime now hops sideways too - it drifts left or right while it's in the air, sits still while it's resting, and bounces off walls to turn around and hop the other way.",
+  "Day 17 \u2014 BLUE SLIME is on your shelf in the level builder, under \ud83d\udd35 Blue Slime! It never walks - it only hops, straight up 3 blocks high, then rests before hopping again. Squash it just like a regular slime.",
+  "Day 16b \u2014 Tuned the Hop Fireball: now it's invisible while it's fully down, and pops into view the moment it's not at the bottom - even more like the real Super Mario Bros fireballs.",
+  "Day 16 \u2014 HOP FIREBALLS are on your shelf in the level builder, under \ud83d\udd25 in the DANGER group! Just like Super Mario Bros - they pop straight up facing up, flip around to face down on the way back, and pause for a beat before popping again. Brand new painted fireball too.",
+  "Day 15 \u2014 Fixed a real bug YOU found! You could walk right off the far end of a level and fall into nothing. Now every level has an invisible wall at the END too, just like the one at the start - and every level you build from now on gets one automatically.",
+  "Day 14b \u2014 Cleared the three old hard-coded lava pits out of level 14 and dropped in your own lava tile using the level builder, placed exactly where you wanted it.",
+  "Day 14 \u2014 Fixed two bugs YOU found! The lava was only showing the top sliver of its glowing picture - now you see the whole bubbling pool. And the level builder used to stop you from pushing lava down below the ground line - now you can sink it as deep as you want.",
   "Day 13 \u2014 LAVA PITS! Glowing red lava now fills the pits you built in level 14 - touch it and you're back at your checkpoint instantly, no matter how many hearts you have.",
   "Day 12d \u2014 Fixed a real bug YOU found! The two goals in level 12 - Defeat 3 Bone Knights AND Beat the Mage - were printing on top of each other. Now they stack neatly, one under the other.",
   "Day 12c \u2014 Bone Knights and Mages are on your shelf in the level builder now! And the goal checkmark for levels 11 and 12 is a real checkable box now too, not just locked in place.",
